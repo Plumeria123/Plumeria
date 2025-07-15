@@ -48,15 +48,7 @@ export default function ServicesPage() {
 
       {/* Section 2: Publicité & Stratégie Digitale */}
       <section className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
-        <div className="flex justify-center lg:order-last">
-          <Image
-            src="/placeholder.svg?height=400&width=600"
-            width={600}
-            height={400}
-            alt="Digital Advertising & Strategy"
-            className="rounded-lg shadow-lg object-cover"
-          />
-        </div>
+        
         <div className="space-y-6">
           <div className="flex items-center gap-4 text-primary">
             <Megaphone className="h-10 w-10" />
@@ -75,6 +67,15 @@ export default function ServicesPage() {
           <Button asChild className="bg-primary hover:bg-primary/90 text-white">
             <Link href="/contact">Demander un devis Publicité</Link>
           </Button>
+        </div>
+        <div className="flex justify-center lg:order-last">
+          <Image
+            src="/placeholder.svg?height=400&width=600"
+            width={600}
+            height={400}
+            alt="Digital Advertising & Strategy"
+            className="rounded-lg shadow-lg object-cover"
+          />
         </div>
       </section>
     </div>
