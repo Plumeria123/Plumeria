@@ -7,7 +7,7 @@ import { Menu, Flower } from "lucide-react"
 
 export default function Header() {
   return (
-    <header className="flex h-20 w-full items-center px-4 md:px-6 bg-background text-foreground shadow-sm border-b border-gray-800">
+    <header className=" flex h-20 w-full items-center px-4 md:px-20 bg-background text-foreground shadow-sm border-b border-gray-800">
       <Link href="/" className="flex items-center gap-2 text-lg font-bold text-primary">
       
        <img className="w-7" src="7_Plumeria_Export_Couleur_icon.png" alt="" />
