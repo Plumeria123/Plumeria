@@ -2,8 +2,73 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
+const testimonials = [
+  {
+    quote: "Plumeria a transformé notre image. Nous avons gagné en professionnalisme et cohérence.",
+    author: "Salma B. (MyCactusShop)",
+  },
+  {
+    quote: "Très satisfait ! Les visuels boostent l’engagement sur les réseaux.",
+    author: "Nabil E. (E-commerce)",
+  },
+  {
+    quote: "Meriam a capté exactement ce que je voulais. Je reçois plus de demandes grâce à Instagram.",
+    author: "Hajar K. (Coach)",
+  },
+]
+
+const servicePoles = [
+  {
+    title: "1. Pôle Design & Identité Visuelle:",
+    features: [
+      "Création de logo & charte graphique",
+      "Flyers, brochures, cartes de visite",
+      "Packaging & design produit",
+      "Templates réseaux sociaux",
+    ],
+  },
+  {
+    title: "2. Pôle Publicité & Stratégie:",
+    features: [
+      "Campagnes Meta Ads (Facebook/Instagram)",
+      "Publicité Google Ads",
+      "Contenu sponsorisé",
+      "Conseil en storytelling digital",
+    ],
+  },
+]
+const projects = [
+  {
+    name: "Nom du Projet 1",
+    category: "Catégorie",
+    image: "1.jpg",
+  },
+  {
+    name: "Nom du Projet 2",
+    category: "Catégorie",
+    image: "2.jpg",
+  },
+  {
+    name: "Nom du Projet 3",
+    category: "Catégorie",
+    image: "3.jpg",
+  },
+  {
+    name: "Nom du Projet 4", // This and subsequent projects will not be displayed
+    category: "Catégorie",
+    image: "/placeholder.svg?height=300&width=400",
+  },
+  {
+    name: "Nom du Projet 5",
+    category: "Catégorie",
+    image: "/placeholder.svg?height=300&width=400",
+  },
+]
 export default function HomePage() {
+  
+ const displayedProjects = projects.slice(0, 3)
   return (
     <>
       {/* Section 1: Hero */}
@@ -82,161 +147,191 @@ export default function HomePage() {
 
       {/* Section 3: Nos Réalisations */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-950 text-white">
-        <div className="container px-4 md:px-6 text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-8">
-            Nos Réalisations
-          </h2>
-          <p className="text-lg text-gray-300 mb-12">
-            Découvrez quelques-uns de nos projets qui ont aidé nos clients à briller.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Placeholder for gallery items */}
-            <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+      <div className="container px-4 md:px-6 text-center">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-8">
+          Nos Réalisations
+        </h2>
+        <p className="text-lg text-gray-300 mb-12">
+          Découvrez quelques-uns de nos projets qui ont aidé nos clients à briller.
+        </p>
+
+        {/* Desktop Grid Layout */}
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayedProjects.map((project, index) => (
+            <div
+              key={index}
+              className="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform md:hover:scale-105 transition-transform duration-300"
+            >
               <Image
-                src="/placeholder.svg?height=300&width=400"
+                src={project.image || "/placeholder.svg"}
                 width={400}
                 height={300}
-                alt="Projet 1"
+                alt={project.name}
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h3 className="font-semibold text-lg text-primary">Nom du Projet 1</h3>
-                <p className="text-sm text-gray-400">Catégorie</p>
+                <h3 className="font-semibold text-lg text-primary">{project.name}</h3>
+                <p className="text-sm text-gray-400">{project.category}</p>
               </div>
             </div>
-            <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
-              <Image
-                src="/placeholder.svg?height=300&width=400"
-                width={400}
-                height={300}
-                alt="Projet 2"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold text-lg text-primary">Nom du Projet 2</h3>
-                <p className="text-sm text-gray-400">Catégorie</p>
-              </div>
-            </div>
-            <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
-              <Image
-                src="/placeholder.svg?height=300&width=400"
-                width={400}
-                height={300}
-                alt="Projet 3"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold text-lg text-primary">Nom du Projet 3</h3>
-                <p className="text-sm text-gray-400">Catégorie</p>
-              </div>
-            </div>
-          </div>
-          <Button
-            asChild
-            className="mt-12 bg-primary hover:bg-primary/90 text-white shadow-lg transition-all duration-300 hover:scale-105"
-          >
-            <Link href="/realisations">Voir toutes les réalisations</Link>
-          </Button>
+          ))}
         </div>
-      </section>
+
+        {/* Mobile Carousel Layout */}
+        <div className="md:hidden relative">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4 items-stretch">
+              {displayedProjects.map((project, index) => (
+                <CarouselItem key={index} className="pl-4 basis-full">
+                  <div className="p-1 h-full">
+                    <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+                      <Image
+                        src={project.image || "/placeholder.svg"}
+                        width={400}
+                        height={300}
+                        alt={project.name}
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="p-4 flex-grow">
+                        <h3 className="font-semibold text-lg text-primary">{project.name}</h3>
+                        <p className="text-sm text-gray-400">{project.category}</p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
+            <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
+          </Carousel>
+        </div>
+
+        <Button
+          asChild
+          className="mt-12 bg-primary hover:bg-black/90 text-white shadow-lg transition-all duration-300 md:hover:scale-105"
+        >
+          <Link href="/realisations">Voir toutes les réalisations</Link>
+        </Button>
+      </div>
+    </section>
 
       {/* Section 4: Nos Services */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-white text-foreground">
-        <div className="container px-4 md:px-6 text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-8">
-            Des services sur mesure pour révéler tout le potentiel de votre marque
-          </h2>
-          <p className="mx-auto max-w-[800px] text-lg text-gray-700 mb-12">
-            Chez Plumeria, nous combinons la force du design graphique et l’efficacité de la publicité digitale pour
-            créer une présence visuelle cohérente, élégante et performante. Notre équipe transforme vos idées en images
-            fortes, vos valeurs en histoires captivantes, et vos objectifs en résultats mesurables.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-100 p-8 rounded-lg shadow-md text-left">
-              <h3 className="text-2xl font-bold text-primary mb-4">1. Pôle Design & Identité Visuelle:</h3>
+       <section className="w-full py-12 md:py-24 lg:py-32 bg-white text-foreground">
+      <div className="container px-4 md:px-6 text-center">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-8">
+          Des services sur mesure pour révéler tout le potentiel de votre marque
+        </h2>
+        <p className="mx-auto max-w-[800px] text-lg text-gray-700 mb-12">
+          Chez Plumeria, nous combinons la force du design graphique et l’efficacité de la publicité digitale pour créer
+          une présence visuelle cohérente, élégante et performante. Notre équipe transforme vos idées en images fortes,
+          vos valeurs en histoires captivantes, et vos objectifs en résultats mesurables.
+        </p>
+
+        {/* Desktop Grid Layout */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-8">
+          {servicePoles.map((pole, index) => (
+            <div
+              key={index}
+              className="bg-gray-100 p-8 rounded-lg shadow-md text-left transform md:hover:scale-105 transition-transform duration-300"
+            >
+              <h3 className="text-2xl font-bold text-primary mb-4">{pole.title}</h3>
               <ul className="space-y-2 text-lg text-gray-700">
-                <li>
-                  <span className="font-semibold text-accent">✓</span> Création de logo & charte graphique
-                </li>
-                <li>
-                  <span className="font-semibold text-accent">✓</span> Flyers, brochures, cartes de visite
-                </li>
-                <li>
-                  <span className="font-semibold text-accent">✓</span> Packaging & design produit
-                </li>
-                <li>
-                  <span className="font-semibold text-accent">✓</span> Templates réseaux sociaux
-                </li>
+                {pole.features.map((feature, idx) => (
+                  <li key={idx}>
+                    <span className="font-semibold text-accent">✓</span> {feature}
+                  </li>
+                ))}
               </ul>
             </div>
-            <div className="bg-gray-100 p-8 rounded-lg shadow-md text-left">
-              <h3 className="text-2xl font-bold text-primary mb-4">2. Pôle Publicité & Stratégie:</h3>
-              <ul className="space-y-2 text-lg text-gray-700">
-                <li>
-                  <span className="font-semibold text-accent">✓</span> Campagnes Meta Ads (Facebook/Instagram)
-                </li>
-                <li>
-                  <span className="font-semibold text-accent">✓</span> Publicité Google Ads
-                </li>
-                <li>
-                  <span className="font-semibold text-accent">✓</span> Contenu sponsorisé
-                </li>
-                <li>
-                  <span className="font-semibold text-accent">✓</span> Conseil en storytelling digital
-                </li>
-              </ul>
-            </div>
-          </div>
-          <Button
-            asChild
-            className="mt-12 bg-primary hover:bg-primary/90 text-white shadow-lg transition-all duration-300 hover:scale-105"
-          >
-            <Link href="/contact">Obtenir un devis</Link>
-          </Button>
+          ))}
         </div>
-      </section>
+
+        {/* Mobile Carousel Layout */}
+        <div className="md:hidden relative">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4 items-stretch">
+              {servicePoles.map((pole, index) => (
+                <CarouselItem key={index} className="pl-4 basis-full">
+                  <div className="p-1 h-full">
+                    <div className="bg-gray-100 p-8 rounded-lg shadow-md text-left h-full flex flex-col justify-center">
+                      <h3 className="text-2xl font-bold text-primary mb-4">{pole.title}</h3>
+                      <ul className="space-y-2 text-lg text-gray-700">
+                        {pole.features.map((feature, idx) => (
+                          <li key={idx}>
+                            <span className="font-semibold text-accent">✓</span> {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
+            <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
+          </Carousel>
+        </div>
+
+        <Button
+          asChild
+          className="mt-12 bg-primary hover:bg-primary/90 text-white shadow-lg transition-all duration-300 md:hover:scale-105"
+        >
+          <Link href="/contact">Obtenir un devis</Link>
+        </Button>
+      </div>
+    </section>
 
       {/* Section 5: Nos Partenaires */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-950 text-white">
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-200 text-white">
         <div className="container px-4 md:px-6 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-8">
             Nos Partenaires
           </h2>
-          <p className="text-lg text-gray-300 mb-12">
+          <p className="text-lg text-black mb-12">
             Nous sommes fiers de collaborer avec des entreprises de premier plan.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-center">
             {/* Placeholder for partner logos */}
             <Image
-              src="/placeholder-logo.svg"
+              src="aws.svg"
               width={120}
               height={60}
               alt="Partner Logo 1"
               className="mx-auto opacity-70 hover:opacity-100 transition-opacity invert" // Added invert for dark background
             />
             <Image
-              src="/placeholder-logo.svg"
+              src="prestashop-logo.svg"
               width={120}
               height={60}
               alt="Partner Logo 2"
               className="mx-auto opacity-70 hover:opacity-100 transition-opacity invert"
             />
             <Image
-              src="/placeholder-logo.svg"
+              src="gc-p-.svg"
               width={120}
               height={60}
               alt="Partner Logo 3"
               className="mx-auto opacity-70 hover:opacity-100 transition-opacity invert"
             />
             <Image
-              src="/placeholder-logo.svg"
+              src="a.svg"
               width={120}
               height={60}
               alt="Partner Logo 4"
               className="mx-auto opacity-70 hover:opacity-100 transition-opacity invert"
             />
             <Image
-              src="/placeholder-logo.svg"
+              src="shfy-p-.svg"
               width={120}
               height={60}
               alt="Partner Logo 5"
@@ -247,34 +342,57 @@ export default function HomePage() {
       </section>
 
       {/* Section 6: Témoignages Clients */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-white text-foreground">
-        <div className="container px-4 md:px-6 text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-8">
-            Témoignages Clients
-          </h2>
-          <p className="text-lg text-gray-700 mb-12">Ce que nos clients disent de nous.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+       <section className="w-full py-12 md:py-24 lg:py-32 bg-white text-foreground">
+      <div className="container px-4 md:px-6 text-center">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-8">
+          Témoignages Clients
+        </h2>
+        <p className="text-lg text-gray-700 mb-12">Ce que nos clients disent de nous.</p>
+
+        {/* Desktop Grid Layout */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-gray-100 p-6 rounded-lg shadow-md">
               <p className="italic text-gray-700 mb-4">
-                &quot;Plumeria a transformé notre image. Nous avons gagné en professionnalisme et cohérence.&quot;
+                {'"'}
+                {testimonial.quote}
+                {'"'}
               </p>
-              <p className="font-semibold text-primary">- Salma B. (MyCactusShop)</p>
+              <p className="font-semibold text-primary">- {testimonial.author}</p>
             </div>
-            <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-              <p className="italic text-gray-700 mb-4">
-                &quot;Très satisfait ! Les visuels boostent l’engagement sur les réseaux.&quot;
-              </p>
-              <p className="font-semibold text-primary">- Nabil E. (E-commerce)</p>
-            </div>
-            <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-              <p className="italic text-gray-700 mb-4">
-                &quot;Meriam a capté exactement ce que je voulais. Je reçois plus de demandes grâce à Instagram.&quot;
-              </p>
-              <p className="font-semibold text-primary">- Hajar K. (Coach)</p>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
+
+        {/* Mobile Carousel Layout */}
+        <div className="md:hidden relative">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4 items-stretch">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="pl-4 basis-full">
+                  <div className="p-1 h-full">
+                    <div className="bg-gray-100 p-6 rounded-lg shadow-md h-full flex flex-col justify-center">
+                      <p className="italic text-gray-700 mb-4">
+                        {'"'}
+                        {testimonial.quote}
+                        {'"'}
+                      </p>
+                      <p className="font-semibold text-primary">- {testimonial.author}</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
+            <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
+          </Carousel>
+        </div>
+      </div>
+    </section>
 
       {/* FAQ (Allégée) */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-950 text-white">
