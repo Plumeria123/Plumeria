@@ -23,11 +23,13 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "#000000", // Noir
-        foreground: "#FFFFFF", // Blanc
+        background: "#FFFFFF",
+         // Changed from #000000 to #FFFFFF
+        background2: "#000000",
+        foreground: "#FFFFFF",
         primary: {
-          DEFAULT: "#006EAC", // Bleu
-          foreground: "#FFFFFF",
+          DEFAULT: "#006EAC", // A shade of blue
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -42,7 +44,7 @@ const config = {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "#55C3BA", // Bleu aqua
+          DEFAULT: "#55C3BA", // A shade of teal/cyan
           foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
@@ -68,10 +70,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.8s ease-out forwards",
       },
     },
   },

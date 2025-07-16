@@ -1,21 +1,40 @@
+"use client" // This component needs to be a client component to use hooks
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Phone, MessageCircle, Mail } from "lucide-react"
 import Link from "next/link"
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer" // Import the new hook
 
 export default function ContactPage() {
+  // Refs for intersection observation with explicit types
+  const [titleRef, titleHasAnimated] = useIntersectionObserver<HTMLHeadingElement>({ threshold: 0.1 })
+  const [descriptionRef, descriptionHasAnimated] = useIntersectionObserver<HTMLHeadingElement>({ threshold: 0.1 })
+  const [formRef, formHasAnimated] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 })
+  const [contactMethodsRef, contactMethodsHasAnimated] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 })
+
   return (
-    <div className="container px-4 md:px-6 py-12 md:py-24 lg:py-32 bg-background text-foreground">
+    <div className="container px-4 md:px-6 py-12 md:py-24 lg:py-32 bg-background2 text-foreground">
       <section className="text-center mb-16">
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-primary">Contactez-nous</h1>
-        <h2 className="mx-auto max-w-[800px] text-lg md:text-xl text-gray-300 mt-4">
+        <h1
+          ref={titleRef}
+          className={`text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-primary opacity-0 ${titleHasAnimated ? "animate-fade-in [animation-delay:0.2s]" : ""}`}
+        >
+          Contactez-nous
+        </h1>
+        <h2
+          ref={descriptionRef}
+          className={`mx-auto max-w-[800px] text-lg md:text-xl text-gray-300 mt-4 opacity-0 ${descriptionHasAnimated ? "animate-fade-in [animation-delay:0.4s]" : ""}`}
+        >
           Un projet, une question ou une idée ? Parlons-en dès maintenant.
         </h2>
       </section>
-
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <div className="bg-gray-900 p-8 rounded-lg shadow-md text-white">
+        <div
+          ref={formRef}
+          className={`bg-gray-900 p-8 rounded-lg shadow-md text-white opacity-0 ${formHasAnimated ? "animate-fade-in [animation-delay:0.6s]" : ""}`}
+        >
           <h3 className="text-2xl font-bold text-primary mb-6">Envoyez-nous un message</h3>
           <form className="grid gap-6">
             <div className="grid gap-2">
@@ -67,8 +86,10 @@ export default function ContactPage() {
             </Button>
           </form>
         </div>
-
-        <div className="space-y-8 text-center lg:text-left">
+        <div
+          ref={contactMethodsRef}
+          className={`space-y-8 text-center lg:text-left opacity-0 ${contactMethodsHasAnimated ? "animate-fade-in [animation-delay:0.8s]" : ""}`}
+        >
           <h3 className="text-2xl font-bold text-primary mb-4">Autres moyens de nous contacter</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <Link

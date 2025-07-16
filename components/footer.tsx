@@ -3,7 +3,7 @@ import { Flower, Facebook, Instagram } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="w-full py-12 md:py-16 bg-background text-foreground border-t border-gray-800">
+    <footer className="w-full py-12 md:py-16 bg-background2 text-foreground border-t border-gray-900">
       <div className="container px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Logo Section */}
         <div className="flex flex-col items-center sm:items-start">
